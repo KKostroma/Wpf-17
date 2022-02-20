@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfЗадание17"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="500">
     <Grid>
-        
+        <StackPanel>
+            <local:ColorIndex x:Name="colorIndex" 
+                              HorizontalAlignment="Center"
+                              Width="250"
+                              Height="60"
+                              ColorChanged="colorIndex_ColorChanged_1"/>
+            <TextBlock x:Name="txb" Text="Hello!"
+                       Margin="10"
+                       Padding="10"
+                       Background="White"/>
+        </StackPanel>
     </Grid>
 </Window>

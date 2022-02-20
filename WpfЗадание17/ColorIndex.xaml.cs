@@ -71,8 +71,8 @@ namespace WpfЗадание17
         private static void OnColorRGBChanged(DependencyObject sender,
             DependencyPropertyChangedEventArgs e)
         {
-            ColorIndex colorPicker = (ColorIndex)sender;
-            Color color = colorPicker.Color;
+            ColorIndex colorIndex = (ColorIndex)sender;
+            Color color = colorIndex.Color;
             if (e.Property == RedProperty)
                 color.R = (byte)e.NewValue;
             else if (e.Property == GreenProperty)
@@ -80,17 +80,27 @@ namespace WpfЗадание17
             else if (e.Property == BlueProperty)
                 color.B = (byte)e.NewValue;
 
-            colorPicker.Color = color;
+            colorIndex.Color = color;
         }
 
         private static void OnColorChanged(DependencyObject sender,
       DependencyPropertyChangedEventArgs e)
         {
             Color newColor = (Color)e.NewValue;
-            ColorIndex colorpicker = (ColorIndex)sender;
-            colorpicker.Red = newColor.R;
-            colorpicker.Green = newColor.G;
-            colorpicker.Blue = newColor.B;
+            ColorIndex colorindex = (ColorIndex)sender;
+            colorindex.Red = newColor.R;
+            colorindex.Green = newColor.G;
+            colorindex.Blue = newColor.B;
+
+            RoutedPropertyChangedEventArgs<Color> args = new RoutedPropertyChangedEventArgs<Color>(colorindex.Color, newColor);
+            args.RoutedEvent = ColorChangedEvent;
+            colorindex.RaiseEvent(args);
+        }
+
+        public event RoutedPropertyChangedEventHandler<Color> ColorChanged
+        {
+            add { AddHandler(ColorChangedEvent, value); }
+            remove { RemoveHandler(ColorChangedEvent, value); }
         }
     }
 }
